@@ -1,0 +1,26 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides: start-kafka stop-kafka
+# Required-Start: zookeeper
+# Required-Stop: zookeeper
+# Default-Start: 2 3 4 5
+# Default-Stop: 0 1 6
+# Description: kafka
+### END INIT INFO
+
+case "$1" in
+"start")
+  $KAFKA_HOME/bin/kafka-server-start.sh -daemon /etc/opt/kafka/server.properties 
+  ;;
+"stop")
+  $KAFKA_HOME/bin/kafka-server-stop.sh
+  ;;
+"restart")
+  $KAFKA_HOME/bin/kafka-server-stop.sh
+  $KAFKA_HOME/bin/kafka-server-start.sh -daemon /etc/opt/kafka/server.properties
+  ;;
+*)
+  echo "Usage: $0 { start | stop | restart }"
+  ;;
+esac
+exit 0
